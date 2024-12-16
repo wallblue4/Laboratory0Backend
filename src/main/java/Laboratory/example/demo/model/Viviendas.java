@@ -1,6 +1,7 @@
 package Laboratory.example.demo.model;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import java.util.List;
 
@@ -18,6 +19,7 @@ public class Viviendas {
 
     @ManyToOne
     @JoinColumn(name = "id_municipio")
+    @JsonBackReference
     private Municipios municipio;
 
     @OneToMany(mappedBy = "viviendaActual")
