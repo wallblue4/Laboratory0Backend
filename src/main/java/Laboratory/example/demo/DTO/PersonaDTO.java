@@ -2,22 +2,28 @@ package Laboratory.example.demo.DTO;
 
 import Laboratory.example.demo.model.Personas;
 
+import java.util.Date;
+
 public class PersonaDTO {
     private Long id;
     private String nombre;
     private String sexo;
-    private String fechaNac;
+    private Date fechaNac;
     private String telefono;
-    private String viviendaDireccion;
+    private Long viviendaId;
+
+
+    public PersonaDTO() {
+    }
 
     // Constructor para simplificar el mapeo
     public PersonaDTO(Personas persona) {
         this.id = persona.getId();
         this.nombre = persona.getNombre();
         this.sexo = persona.getSexo();
-        this.fechaNac = persona.getFechaNac() != null ? persona.getFechaNac().toString() : null;
+        this.fechaNac = persona.getFechaNac() != null ? persona.getFechaNac() : null;
         this.telefono = persona.getTelefono();
-        this.viviendaDireccion = persona.getViviendaActual() != null ? persona.getViviendaActual().getDireccion() : null;
+        this.viviendaId = persona.getViviendaActual() != null ? persona.getViviendaActual().getId(): null;
     }
 
     // Getters y Setters
@@ -30,12 +36,12 @@ public class PersonaDTO {
     public String getSexo() { return sexo; }
     public void setSexo(String sexo) { this.sexo = sexo; }
 
-    public String getFechaNac() { return fechaNac; }
-    public void setFechaNac(String fechaNac) { this.fechaNac = fechaNac; }
+    public Date getFechaNac() { return fechaNac; }
+    public void setFechaNac(Date fechaNac) { this.fechaNac = fechaNac; }
 
     public String getTelefono() { return telefono; }
     public void setTelefono(String telefono) { this.telefono = telefono; }
 
-    public String getViviendaDireccion() { return viviendaDireccion; }
-    public void setViviendaDireccion(String viviendaDireccion) { this.viviendaDireccion = viviendaDireccion; }
+    public Long getViviendaId() { return viviendaId; }
+    public void setViviendaId(Long viviendaDireccion) { this.viviendaId = viviendaDireccion; }
 }

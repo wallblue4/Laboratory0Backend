@@ -1,6 +1,7 @@
 package Laboratory.example.demo.service;
 
 
+import Laboratory.example.demo.DTO.PersonaDTO;
 import Laboratory.example.demo.model.Personas;
 import Laboratory.example.demo.repository.PersonasRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ public class PersonasService {
 
     // Crear o actualizar una persona
     public Personas savePersona(Personas persona) {
+
         return personasRepository.save(persona);
     }
 

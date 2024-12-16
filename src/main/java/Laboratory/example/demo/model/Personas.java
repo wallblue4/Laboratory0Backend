@@ -1,6 +1,8 @@
 package Laboratory.example.demo.model;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import java.util.Date;
 
@@ -9,7 +11,6 @@ import java.util.Date;
 public class Personas {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String tipo_doc;
@@ -20,6 +21,7 @@ public class Personas {
 
     @ManyToOne
     @JoinColumn(name = "id_vivienda_actual", nullable = true)
+    @JsonBackReference
     private Viviendas viviendaActual;
 
     // Getters y Setters

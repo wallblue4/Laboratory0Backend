@@ -2,6 +2,7 @@ package Laboratory.example.demo.model;
 
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import java.util.List;
 
@@ -23,6 +24,7 @@ public class Viviendas {
     private Municipios municipio;
 
     @OneToMany(mappedBy = "viviendaActual")
+    @JsonManagedReference
     private List<Personas> habitantes;
 
     // Getters y Setters
