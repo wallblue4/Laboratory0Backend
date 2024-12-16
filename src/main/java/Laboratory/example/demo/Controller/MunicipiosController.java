@@ -1,6 +1,7 @@
 package Laboratory.example.demo.Controller;
 
 
+import Laboratory.example.demo.DTO.MunicipioDTO;
 import Laboratory.example.demo.model.Municipios;
 import Laboratory.example.demo.service.MunicipiosService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,10 +23,11 @@ public class MunicipiosController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Municipios> getMunicipioById(@PathVariable Long id) {
+    public ResponseEntity<MunicipioDTO> getMunicipioById(@PathVariable Long id) {
         Municipios municipio = municipiosService.getMunicipioById(id);
-        return municipio != null ? ResponseEntity.ok(municipio) : ResponseEntity.notFound().build();
+        return municipio != null ? ResponseEntity.ok(new MunicipioDTO(municipio)) : ResponseEntity.notFound().build();
     }
+
 
     @GetMapping("/nombre")
     public Municipios getMunicipioByNombre(@RequestParam String nombre) {

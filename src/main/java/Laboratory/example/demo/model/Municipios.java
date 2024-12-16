@@ -15,7 +15,7 @@ public class Municipios {
     private String nombre;
 
     @OneToMany(mappedBy = "municipio")
-    @JsonManagedReference
+
     private List<Viviendas> viviendas;
 
     // Getters y Setters

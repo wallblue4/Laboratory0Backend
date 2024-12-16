@@ -19,7 +19,7 @@ public class Viviendas {
 
     @ManyToOne
     @JoinColumn(name = "id_municipio")
-    @JsonBackReference
+
     private Municipios municipio;
 
     @OneToMany(mappedBy = "viviendaActual")

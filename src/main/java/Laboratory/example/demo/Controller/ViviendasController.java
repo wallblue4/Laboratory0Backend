@@ -1,6 +1,7 @@
 package Laboratory.example.demo.Controller;
 
 
+import Laboratory.example.demo.DTO.ViviendaDTO;
 import Laboratory.example.demo.model.Municipios;
 import Laboratory.example.demo.model.Viviendas;
 import Laboratory.example.demo.service.ViviendasService;
@@ -23,9 +24,9 @@ public class ViviendasController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Viviendas> getViviendaById(@PathVariable Long id) {
+    public ResponseEntity<ViviendaDTO> getViviendaById(@PathVariable Long id) {
         Viviendas vivienda = viviendasService.getViviendaById(id);
-        return vivienda != null ? ResponseEntity.ok(vivienda) : ResponseEntity.notFound().build();
+        return vivienda != null ? ResponseEntity.ok(new ViviendaDTO(vivienda)) : ResponseEntity.notFound().build();
     }
 
     @DeleteMapping("/{id}")

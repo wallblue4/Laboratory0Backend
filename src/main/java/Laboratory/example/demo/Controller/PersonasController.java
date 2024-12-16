@@ -1,6 +1,7 @@
 package Laboratory.example.demo.Controller;
 
 
+import Laboratory.example.demo.DTO.PersonaDTO;
 import Laboratory.example.demo.model.Personas;
 import Laboratory.example.demo.service.PersonasService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,10 +24,11 @@ public class PersonasController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Personas> getPersonaById(@PathVariable Long id) {
+    public ResponseEntity<PersonaDTO> getPersonaById(@PathVariable Long id) {
         Personas persona = personasService.getPersonaById(id);
-        return persona != null ? ResponseEntity.ok(persona) : ResponseEntity.notFound().build();
+        return persona != null ? ResponseEntity.ok(new PersonaDTO(persona)) : ResponseEntity.notFound().build();
     }
+
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletePersona(@PathVariable Long id) {
