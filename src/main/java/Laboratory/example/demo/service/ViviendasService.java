@@ -24,6 +24,10 @@ public class ViviendasService {
         return viviendasRepository.findById(id).orElse(null);
     }
 
+    public List<Viviendas> getAllViviendas() {
+        return viviendasRepository.findAll();
+    }
+
     // Eliminar una vivienda
     public void deleteVivienda(Long id) {
         viviendasRepository.deleteById(id);

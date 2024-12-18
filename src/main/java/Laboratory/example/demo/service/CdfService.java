@@ -18,6 +18,9 @@ public class CdfService {
     public Cdf saveCdf(Cdf cdf) {
         return cdfRepository.save(cdf);
     }
+    public List<Cdf> getAllCdf() {
+        return cdfRepository.findAll();
+    }
 
     // Buscar registros por persona
     public List<Cdf> getCdfByPersona(Long idPersona) {

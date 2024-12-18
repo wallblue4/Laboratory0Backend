@@ -23,6 +23,16 @@ public class ViviendasController {
         return viviendasService.saveVivienda(vivienda);
     }
 
+    @GetMapping
+    public ResponseEntity<List<ViviendaDTO>> getAllViviendas() {
+        List<Viviendas> viviendas = viviendasService.getAllViviendas();
+        List<ViviendaDTO> viviendasDTO = viviendas.stream()
+                .map(ViviendaDTO::new)
+                .toList();
+        return ResponseEntity.ok(viviendasDTO);
+    }
+
+
     @GetMapping("/{id}")
     public ResponseEntity<ViviendaDTO> getViviendaById(@PathVariable Long id) {
         Viviendas vivienda = viviendasService.getViviendaById(id);

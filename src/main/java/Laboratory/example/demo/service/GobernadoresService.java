@@ -21,6 +21,10 @@ public class GobernadoresService {
         return gobernadoresRepository.save(gobernador);
     }
 
+    public List<Gobernadores> getAllGobernadores() {
+        return gobernadoresRepository.findAll();
+    }
+
     // Buscar gobernador por persona
     public Gobernadores getGobernadorByPersona(Personas idPersona) {
         return gobernadoresRepository.findByPersona(idPersona);

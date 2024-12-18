@@ -22,6 +22,15 @@ public class MunicipiosController {
         return municipiosService.saveMunicipio(municipio);
     }
 
+    @GetMapping
+    public ResponseEntity<List<MunicipioDTO>> getAllMunicipios() {
+        List<Municipios> municipios = municipiosService.getAllMunicipios();
+        List<MunicipioDTO> municipiosDTO = municipios.stream()
+                .map(MunicipioDTO::new)
+                .toList();
+        return ResponseEntity.ok(municipiosDTO);
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<MunicipioDTO> getMunicipioById(@PathVariable Long id) {
         Municipios municipio = municipiosService.getMunicipioById(id);

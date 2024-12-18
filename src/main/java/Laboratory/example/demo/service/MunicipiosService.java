@@ -18,6 +18,9 @@ public class MunicipiosService {
     public Municipios saveMunicipio(Municipios municipio) {
         return municipiosRepository.save(municipio);
     }
+    public List<Municipios> getAllMunicipios() {
+        return municipiosRepository.findAll();
+    }
 
     // Obtener municipio por ID
     public Municipios getMunicipioById(Long id) {

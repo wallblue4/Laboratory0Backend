@@ -22,6 +22,16 @@ public class PersonasController {
     public Personas createPersona(@RequestBody Personas persona) {
         return personasService.savePersona(persona);
     }
+    @GetMapping
+    public ResponseEntity<List<PersonaDTO>> getAllPersonas() {
+        List<Personas> personas = personasService.getAllPersonas();
+        List<PersonaDTO> personasDTO = personas.stream()
+                .map(PersonaDTO::new)
+                .toList();
+        return ResponseEntity.ok(personasDTO);
+    }
+
+
 
     @GetMapping("/{id}")
     public ResponseEntity<PersonaDTO> getPersonaById(@PathVariable Long id) {

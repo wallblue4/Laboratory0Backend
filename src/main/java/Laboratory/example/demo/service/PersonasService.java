@@ -21,7 +21,9 @@ public class PersonasService {
 
         return personasRepository.save(persona);
     }
-
+    public List<Personas> getAllPersonas() {
+        return personasRepository.findAll();
+    }
     // Obtener una persona por ID
     public Personas getPersonaById(Long id) {
         return personasRepository.findById(id).orElse(null);
