@@ -1,6 +1,9 @@
 package Laboratory.example.demo.DTO;
 
+import Laboratory.example.demo.model.Personas;
 import Laboratory.example.demo.model.Viviendas;
+
+import java.util.List;
 
 public class ViviendaDTO {
     private Long id;
@@ -9,6 +12,8 @@ public class ViviendaDTO {
     private Integer niveles;
     private String municipioNombre;
 
+    private List<Personas> habitantes;
+
     // Constructor para simplificar el mapeo
     public ViviendaDTO(Viviendas vivienda) {
         this.id = vivienda.getId();
@@ -16,6 +21,7 @@ public class ViviendaDTO {
         this.capacidad = vivienda.getCapacidad();
         this.niveles = vivienda.getNiveles();
         this.municipioNombre = vivienda.getMunicipio() != null ? vivienda.getMunicipio().getNombre() : null;
+        this.habitantes = vivienda.getHabitantes();
     }
 
     // Getters y Setters
@@ -33,4 +39,12 @@ public class ViviendaDTO {
 
     public String getMunicipioNombre() { return municipioNombre; }
     public void setMunicipioNombre(String municipioNombre) { this.municipioNombre = municipioNombre; }
+
+    public List<Personas> getHabitantes() {
+        return habitantes;
+    }
+
+    public void setHabitantes(List<Personas> habitantes) {
+        this.habitantes = habitantes;
+    }
 }

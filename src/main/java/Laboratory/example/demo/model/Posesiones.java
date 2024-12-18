@@ -1,6 +1,8 @@
 package Laboratory.example.demo.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 
 @Entity
 @Table(name = "posesiones", uniqueConstraints = {@UniqueConstraint(columnNames = {"id_persona", "id_vivienda"})})
@@ -18,6 +20,8 @@ public class Posesiones {
     @JoinColumn(name = "id_vivienda")
     private Viviendas vivienda;
 
+    @NotBlank(message = "The possession date cannot be blank")
+    @Pattern(regexp = "^\\d{4}-\\d{2}-\\d{2}$", message = "The possession date must follow the format YYYY-MM-DD")
     private String fecha_posesion;
 
     // Getters y Setters

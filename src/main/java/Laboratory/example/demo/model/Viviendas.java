@@ -4,6 +4,8 @@ package Laboratory.example.demo.model;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
+
 import java.util.List;
 
 @Entity
@@ -14,8 +16,22 @@ public class Viviendas {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message = "Address cannot be blank")
+    @Size(max = 100, message = "Address must not exceed 100 characters")
+    @Pattern(
+            regexp = "^[a-zA-Z0-9\\s#\\-/,\\.]+$",
+            message = "Address can only contain letters, numbers, spaces, and the characters #, -, /, , and ."
+    )
     private String direccion;
+
+    @NotNull(message = "Capacity cannot be null")
+    @Min(value = 1, message = "Capacity must be at least 1")
+    @Max(value = 10, message = "Capacity must not exceed 10")
     private Integer capacidad;
+
+    @NotNull(message = "Levels cannot be null")
+    @Min(value = 1, message = "Levels must be at least 1")
+    @Max(value = 6, message = "Levels must not exceed 6")
     private Integer niveles;
 
     @ManyToOne

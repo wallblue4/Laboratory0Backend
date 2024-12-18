@@ -3,6 +3,9 @@ package Laboratory.example.demo.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+
 import java.util.List;
 
 @Entity
@@ -13,6 +16,8 @@ public class Municipios {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message = "Name cannot be blank")
+    @Size(max = 50, message = "Name must not exceed 50 characters")
     private String nombre;
 
     @OneToMany(mappedBy = "municipio")
