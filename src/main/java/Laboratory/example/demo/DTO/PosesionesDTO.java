@@ -4,12 +4,23 @@ import Laboratory.example.demo.model.Posesiones;
 
 public class PosesionesDTO {
 
-    private Long id;
-    private Long personaId;      // ID de la persona asociada
+    public Long id;
+    public Long personaId;      // ID de la persona asociada
     private String personaNombre; // Nombre de la persona
     private Long viviendaId;      // ID de la vivienda asociada
     private String viviendaDireccion; // Dirección de la vivienda
     private String fechaPosesion; // Fecha de posesión
+
+
+    public PosesionesDTO() {
+    }
+
+
+    public PosesionesDTO(Long personaId, Long viviendaId, String fechaPosesion) {
+        this.personaId = personaId;
+        this.viviendaId = viviendaId;
+        this.fechaPosesion = fechaPosesion;
+    }
 
     // Constructor basado en la entidad Posesiones
     public PosesionesDTO(Posesiones posesion) {

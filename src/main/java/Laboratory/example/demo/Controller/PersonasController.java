@@ -46,6 +46,9 @@ public class PersonasController {
         return ResponseEntity.noContent().build();
     }
 
+
+
+
     @GetMapping("/nombre")
     public List<Personas> getPersonasByNombre(@RequestParam String nombre) {
         return personasService.getPersonasByNombre(nombre);
@@ -64,5 +67,14 @@ public class PersonasController {
     @GetMapping("/sin-vivienda")
     public List<Personas> getPersonasSinVivienda() {
         return personasService.getPersonasSinVivienda();
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Personas> updatePersonas(@PathVariable Long id, @RequestBody Personas updatedPersona) {
+        Personas result = personasService.updatePersonas(id, updatedPersona);
+        if (result == null) {
+            return ResponseEntity.notFound().build(); // Retorna 404 si no se encuentra la persona
+        }
+        return ResponseEntity.ok(result); // Retorna 200 con la persona actualizada
     }
 }

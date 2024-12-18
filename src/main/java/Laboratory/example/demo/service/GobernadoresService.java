@@ -34,4 +34,9 @@ public class GobernadoresService {
     public List<Gobernadores> getGobernadoresByMunicipio(Municipios idMunicipio) {
         return gobernadoresRepository.findByMunicipio(idMunicipio);
     }
+
+    public void deleteGobernadores(Long id) {
+        gobernadoresRepository.deleteById(id);
+    }
+
 }

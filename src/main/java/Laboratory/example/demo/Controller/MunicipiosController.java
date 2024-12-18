@@ -47,4 +47,18 @@ public class MunicipiosController {
     public List<Municipios> getAllMunicipiosOrdenados() {
         return municipiosService.getAllMunicipiosOrdenados();
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletePosesiones(@PathVariable Long id) {
+        municipiosService.deleteMunicipio(id);
+        return ResponseEntity.ok().build();
+    }
+    @PutMapping("/{id}")
+    public ResponseEntity<Municipios> updateMunicipio(@PathVariable Long id, @RequestBody Municipios updatedMunicipio) {
+        Municipios result = municipiosService.updateMunicipio(id, updatedMunicipio);
+        if (result == null) {
+            return ResponseEntity.notFound().build(); // Retorna 404 si no se encuentra el municipio
+        }
+        return ResponseEntity.ok(result); // Retorna 200 con el municipio actualizado
+    }
 }

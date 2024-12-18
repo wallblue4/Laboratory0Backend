@@ -25,6 +25,8 @@ public class PosesionesController {
         return posesionesService.savePosesion(posesion);
     }
 
+
+
     @GetMapping
     public ResponseEntity<List<PosesionesDTO>> getAllPosesiones() {
         List<Posesiones> posesiones = posesionesService.getAllPosesiones();
@@ -34,6 +36,17 @@ public class PosesionesController {
         return ResponseEntity.ok(posesionesDTO);
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<PosesionesDTO> updatePosesiones(
+            @PathVariable Long id,
+            @RequestBody PosesionesDTO posesionesDTO) {
+        Posesiones updatedPosesion = posesionesService.updatePosesiones(id, posesionesDTO);
+        if (updatedPosesion != null) {
+            return ResponseEntity.ok(new PosesionesDTO(updatedPosesion));
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 
     @GetMapping("/persona/{idPersona}")
     public List<Posesiones> getPosesionesByPersona(@PathVariable Personas idPersona) {
@@ -49,4 +62,11 @@ public class PosesionesController {
     public long countPosesiones() {
         return posesionesService.countPosesiones();
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletePosesiones(@PathVariable Long id) {
+        posesionesService.deletePosesiones(id);
+        return ResponseEntity.ok().build();
+    }
+
 }

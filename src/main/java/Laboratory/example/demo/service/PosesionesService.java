@@ -7,6 +7,7 @@ import Laboratory.example.demo.model.Cdf;
 import Laboratory.example.demo.model.Personas;
 import Laboratory.example.demo.model.Posesiones;
 import Laboratory.example.demo.model.Viviendas;
+import Laboratory.example.demo.repository.PersonasRepository;
 import Laboratory.example.demo.repository.PosesionesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -22,10 +23,33 @@ public class PosesionesService {
     @Autowired
     private PosesionesRepository posesionesRepository;
 
+    @Autowired
+    private PersonasRepository personasRepository;
+
+
+
     // Crear o actualizar una posesión
     public Posesiones savePosesion(Posesiones posesion) {
         return posesionesRepository.save(posesion);
     }
+
+    public Posesiones updatePosesiones(Long id, PosesionesDTO posesionesDTO) {
+        // Buscar la posesión existente por ID
+        Posesiones existingPosesion = posesionesRepository.findById(id).orElse(null);
+        if (existingPosesion == null) {
+            return null; // Retorna null si no existe
+        }
+
+        // Validar y actualizar la persona
+        Personas persona = personasRepository.findById(posesionesDTO.getPersonaId()).orElse(null);
+
+        if (persona == null) {
+            throw new IllegalArgumentException("La persona no existe.");
+        }
+        existingPosesion.setPersona(persona);
+        return existingPosesion;
+    }
+
 
     public List<Posesiones> getAllPosesiones() {
         return posesionesRepository.findAll();
@@ -44,4 +68,9 @@ public class PosesionesService {
     public long countPosesiones() {
         return posesionesRepository.count();
     }
+
+    public void deletePosesiones(Long id) {
+        posesionesRepository.deleteById(id);
+    }
+
 }

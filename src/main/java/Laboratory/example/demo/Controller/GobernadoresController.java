@@ -41,4 +41,10 @@ public class GobernadoresController {
     public List<Gobernadores> getGobernadoresByMunicipio(@PathVariable Municipios idMunicipio) {
         return gobernadoresService.getGobernadoresByMunicipio(idMunicipio);
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteGobernadores(@PathVariable Long id) {
+        gobernadoresService.deleteGobernadores(id);
+        return ResponseEntity.ok().build();
+    }
 }
