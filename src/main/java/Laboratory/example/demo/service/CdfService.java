@@ -31,4 +31,21 @@ public class CdfService {
     public long countCdf() {
         return cdfRepository.count();
     }
+    public Cdf updateCdf(Long id, Cdf updatedCdf) {
+        return cdfRepository.findById(id).map(existingCdf -> {
+            //existingCdf.setPersona(updatedCdf.getPersona());
+            existingCdf.setCdf(updatedCdf.getCdf());
+            existingCdf.setFecha_registro(updatedCdf.getFecha_registro());
+            return cdfRepository.save(existingCdf);
+        }).orElse(null);
+    }
+
+    public boolean deleteCdf(Long id) {
+        if (cdfRepository.existsById(id)) {
+            cdfRepository.deleteById(id);
+            return true;
+        }
+        return false;
+    }
+
 }
