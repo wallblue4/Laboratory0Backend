@@ -47,4 +47,13 @@ public class GobernadoresController {
         gobernadoresService.deleteGobernadores(id);
         return ResponseEntity.ok().build();
     }
+    @PutMapping("/{id}")
+    public ResponseEntity<Gobernadores> updateGobernadores(@PathVariable Long id, @RequestBody Gobernadores updatedGobernadores) {
+        Gobernadores result = gobernadoresService.updateGobernadores(id, updatedGobernadores);
+        if (result == null) {
+            return ResponseEntity.notFound().build(); // Retorna 404 si no se encuentra el gobernador
+        }
+        return ResponseEntity.ok(result); // Retorna 200 con el gobernador actualizado
+    }
+
 }

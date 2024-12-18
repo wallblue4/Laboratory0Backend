@@ -38,5 +38,14 @@ public class GobernadoresService {
     public void deleteGobernadores(Long id) {
         gobernadoresRepository.deleteById(id);
     }
+    public Gobernadores updateGobernadores(Long id, Gobernadores updatedGobernador) {
+        return gobernadoresRepository.findById(id).map(existingGobernador -> {
+            existingGobernador.setPersona(updatedGobernador.getPersona());
+            existingGobernador.setMunicipio(updatedGobernador.getMunicipio());
+            existingGobernador.setFecha_registro(updatedGobernador.getFecha_registro());
+            return gobernadoresRepository.save(existingGobernador);
+        }).orElse(null);
+    }
+
 
 }
