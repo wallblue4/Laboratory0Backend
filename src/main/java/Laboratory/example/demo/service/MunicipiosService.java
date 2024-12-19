@@ -33,4 +33,29 @@ public class MunicipiosService {
     public List<Municipios> getAllMunicipiosOrdenados() {
         return municipiosRepository.findAllByOrderByNombreAsc();
     }
+
+
+    public void deleteMunicipio(Long id) {
+        municipiosRepository.deleteById(id);
+    }
+
+    public Municipios updateMunicipio(Long id, Municipios updatedMunicipio) {
+        // Buscar el municipio existente por ID
+        Municipios existingMunicipio = municipiosRepository.findById(id).orElse(null);
+        if (existingMunicipio == null) {
+            return null; // Si no existe, retornar null
+        }
+
+        // Actualizar los campos que no sean null
+        if (updatedMunicipio.getNombre() != null) {
+            existingMunicipio.setNombre(updatedMunicipio.getNombre());
+        }
+
+        // Guardar los cambios en la base de datos
+        return municipiosRepository.save(existingMunicipio);
+    }
+
+    public List<Municipios> getAllMunicipios() {
+        return municipiosRepository.findAll();
+    }
 }

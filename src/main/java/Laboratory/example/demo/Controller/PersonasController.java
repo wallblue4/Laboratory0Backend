@@ -116,4 +116,37 @@ public class PersonasController {
         List<Personas> personas = personasService.getPersonasSinVivienda();
         return ResponseEntity.ok(personas);
     }
+
+    @Operation(summary = "Actualizar Persona",
+            description = "Actualiza los datos de una persona específica identificada por su ID.",
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "Persona actualizada con éxito.",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = Personas.class))),
+                    @ApiResponse(responseCode = "404", description = "Persona no encontrada.",
+                            content = @Content(schema = @Schema(ref = "#/components/schemas/Error")))
+            })
+    @PutMapping("/{id}")
+    public ResponseEntity<Personas> updatePersonas(@PathVariable Long id, @RequestBody Personas updatedPersona) {
+        Personas result = personasService.updatePersonas(id, updatedPersona);
+        if (result == null) {
+            return ResponseEntity.notFound().build(); // Retorna 404 si no se encuentra la persona
+        }
+        return ResponseEntity.ok(result); // Retorna 200 con la persona actualizada
+    }
+
+    @Operation(summary = "Obtener todas las Personas",
+            description = "Recupera una lista completa de todas las personas registradas en la base de datos.",
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "Lista de personas obtenida con éxito.",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = PersonaDTO.class)))
+            })
+    @GetMapping
+    public ResponseEntity<List<PersonaDTO>> getAllPersonas() {
+        List<Personas> personas = personasService.getAllPersonas();
+        List<PersonaDTO> personasDTO = personas.stream()
+                .map(PersonaDTO::new)
+                .toList();
+        return ResponseEntity.ok(personasDTO);
+    }
+
 }

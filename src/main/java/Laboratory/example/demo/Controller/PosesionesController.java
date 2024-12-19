@@ -1,6 +1,7 @@
 package Laboratory.example.demo.Controller;
 
 
+import Laboratory.example.demo.DTO.PosesionesDTO;
 import Laboratory.example.demo.model.Personas;
 import Laboratory.example.demo.model.Posesiones;
 import Laboratory.example.demo.model.Viviendas;
@@ -17,6 +18,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/posesiones")
@@ -79,5 +81,53 @@ public class PosesionesController {
     public ResponseEntity<Long> countPosesiones() {
         long count = posesionesService.countPosesiones();
         return ResponseEntity.ok(count);
+    }
+
+    @Operation(summary = "Obtener todas las Posesiones",
+            description = "Recupera una lista completa de todas las posesiones registradas en la base de datos.",
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "Lista de posesiones obtenida con éxito.",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = PosesionesDTO.class)))
+            })
+    @GetMapping
+    public ResponseEntity<List<PosesionesDTO>> getAllPosesiones() {
+        List<Posesiones> posesiones = posesionesService.getAllPosesiones();
+        List<PosesionesDTO> posesionesDTO = posesiones.stream()
+                .map(PosesionesDTO::new)
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(posesionesDTO);
+    }
+
+    @Operation(summary = "Actualizar Posesión",
+            description = "Actualiza los datos de una posesión específica identificada por su ID.",
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "Posesión actualizada con éxito.",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = PosesionesDTO.class))),
+                    @ApiResponse(responseCode = "404", description = "Posesión no encontrada.",
+                            content = @Content(schema = @Schema(ref = "#/components/schemas/Error")))
+            })
+    @PutMapping("/{id}")
+    public ResponseEntity<PosesionesDTO> updatePosesiones(
+            @PathVariable Long id,
+            @RequestBody PosesionesDTO posesionesDTO) {
+        Posesiones updatedPosesion = posesionesService.updatePosesiones(id, posesionesDTO);
+        if (updatedPosesion != null) {
+            return ResponseEntity.ok(new PosesionesDTO(updatedPosesion));
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @Operation(summary = "Eliminar Posesión",
+            description = "Elimina una posesión específica identificada por su ID.",
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "Posesión eliminada con éxito."),
+                    @ApiResponse(responseCode = "404", description = "Posesión no encontrada.",
+                            content = @Content(schema = @Schema(ref = "#/components/schemas/Error")))
+            })
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletePosesiones(@PathVariable Long id) {
+        posesionesService.deletePosesiones(id);
+        return ResponseEntity.ok().build();
     }
 }

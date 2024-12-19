@@ -30,4 +30,22 @@ public class GobernadoresService {
     public List<Gobernadores> getGobernadoresByMunicipio(Municipios idMunicipio) {
         return gobernadoresRepository.findByMunicipio(idMunicipio);
     }
+
+    public void deleteGobernadores(Long id) {
+        gobernadoresRepository.deleteById(id);
+    }
+
+    public Gobernadores updateGobernadores(Long id, Gobernadores updatedGobernador) {
+        return gobernadoresRepository.findById(id).map(existingGobernador -> {
+            existingGobernador.setPersona(updatedGobernador.getPersona());
+            existingGobernador.setMunicipio(updatedGobernador.getMunicipio());
+            existingGobernador.setFecha_registro(updatedGobernador.getFecha_registro());
+            return gobernadoresRepository.save(existingGobernador);
+        }).orElse(null);
+    }
+
+    public List<Gobernadores> getAllGobernadores() {
+        return gobernadoresRepository.findAll();
+    }
+
 }

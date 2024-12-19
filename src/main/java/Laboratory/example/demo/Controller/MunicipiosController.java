@@ -79,5 +79,50 @@ public class MunicipiosController {
         List<Municipios> municipios = municipiosService.getAllMunicipiosOrdenados();
         return ResponseEntity.ok(municipios);
     }
+
+    @Operation(summary = "Eliminar Municipio",
+            description = "Elimina un municipio específico identificado por su ID.",
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "Municipio eliminado con éxito."),
+                    @ApiResponse(responseCode = "404", description = "Municipio no encontrado.",
+                            content = @Content(schema = @Schema(ref = "#/components/schemas/Error")))
+            })
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletePosesiones(@PathVariable Long id) {
+        municipiosService.deleteMunicipio(id);
+        return ResponseEntity.ok().build();
+    }
+
+    @Operation(summary = "Actualizar Municipio",
+            description = "Actualiza los datos de un municipio específico identificado por su ID.",
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "Municipio actualizado con éxito.",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = Municipios.class))),
+                    @ApiResponse(responseCode = "404", description = "Municipio no encontrado.",
+                            content = @Content(schema = @Schema(ref = "#/components/schemas/Error")))
+            })
+    @PutMapping("/{id}")
+    public ResponseEntity<Municipios> updateMunicipio(@PathVariable Long id, @RequestBody Municipios updatedMunicipio) {
+        Municipios result = municipiosService.updateMunicipio(id, updatedMunicipio);
+        if (result == null) {
+            return ResponseEntity.notFound().build(); // Retorna 404 si no se encuentra el municipio
+        }
+        return ResponseEntity.ok(result); // Retorna 200 con el municipio actualizado
+    }
+
+    @Operation(summary = "Obtener todos los Municipios",
+            description = "Recupera una lista completa de todos los municipios registrados en la base de datos.",
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "Lista de municipios obtenida con éxito.",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = MunicipioDTO.class)))
+            })
+    @GetMapping
+    public ResponseEntity<List<MunicipioDTO>> getAllMunicipios() {
+        List<Municipios> municipios = municipiosService.getAllMunicipios();
+        List<MunicipioDTO> municipiosDTO = municipios.stream()
+                .map(MunicipioDTO::new)
+                .toList();
+        return ResponseEntity.ok(municipiosDTO);
+    }
 }
 

@@ -103,4 +103,37 @@ public class ViviendasController {
         long count = viviendasService.countViviendasConNivelesMayor(niveles);
         return ResponseEntity.ok(count);
     }
+
+    @Operation(summary = "Obtener todas las Viviendas",
+            description = "Recupera una lista completa de todas las viviendas registradas en la base de datos.",
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "Lista de viviendas obtenida con éxito.",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = ViviendaDTO.class)))
+            })
+    @GetMapping
+    public ResponseEntity<List<ViviendaDTO>> getAllViviendas() {
+        List<Viviendas> viviendas = viviendasService.getAllViviendas();
+        List<ViviendaDTO> viviendasDTO = viviendas.stream()
+                .map(ViviendaDTO::new)
+                .toList();
+        return ResponseEntity.ok(viviendasDTO);
+    }
+
+    @Operation(summary = "Actualizar Vivienda",
+            description = "Actualiza los datos de una vivienda específica identificada por su ID. Además, valida y asocia un Municipio existente a la vivienda.",
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "Vivienda actualizada con éxito.",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = Viviendas.class))),
+                    @ApiResponse(responseCode = "404", description = "Vivienda o Municipio no encontrado.",
+                            content = @Content(schema = @Schema(ref = "#/components/schemas/Error")))
+            })
+    @PutMapping("/{id}")
+    public ResponseEntity<Viviendas> updateVivienda(@PathVariable Long id, @Valid @RequestBody Viviendas updatedVivienda) {
+        Viviendas result = viviendasService.updateVivienda(id, updatedVivienda);
+        if (result != null) {
+            return ResponseEntity.ok(result);
+        }
+        return ResponseEntity.notFound().build();
+    }
+
 }
