@@ -8,6 +8,7 @@ public class PersonaDTO {
     private Long id;
     private String nombre;
     private String sexo;
+    private String tipo_doc;
     private Date fechaNac;
     private String telefono;
     private Long viviendaId;
@@ -22,6 +23,7 @@ public class PersonaDTO {
         this.nombre = persona.getNombre();
         this.sexo = persona.getSexo();
         this.fechaNac = persona.getFechaNac() != null ? persona.getFechaNac() : null;
+        this.tipo_doc = persona.getTipo_doc();
         this.telefono = persona.getTelefono();
         this.viviendaId = persona.getViviendaActual() != null ? persona.getViviendaActual().getId(): null;
     }
@@ -44,4 +46,9 @@ public class PersonaDTO {
 
     public Long getViviendaId() { return viviendaId; }
     public void setViviendaId(Long viviendaDireccion) { this.viviendaId = viviendaDireccion; }
+
+    public String getTipo_doc() { return tipo_doc; }
+    public void setTipo_doc(String nombre) { this.tipo_doc = tipo_doc; }
+
+
 }

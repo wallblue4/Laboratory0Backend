@@ -18,8 +18,8 @@ public class Cdf {
     private Long persona;
 
     @ManyToOne
-    @JoinColumn(name = "id_cdf")
-    private Cdf cdf;
+    @JoinColumn(name = "id_vivienda", nullable = false)
+    private Viviendas vivienda;
 
     @NotBlank(message = "The registration date cannot be blank")
     @Pattern(regexp = "^\\d{4}-\\d{2}-\\d{2}$", message = "The registration date must follow the format YYYY-MM-DD")
@@ -32,8 +32,8 @@ public class Cdf {
     public Long getPersona() { return persona; }
     public void setPersona(Personas persona) { this.persona = persona.getId(); }
 
-    public Cdf getCdf() { return cdf; }
-    public void setCdf(Cdf cdf) { this.cdf = cdf; }
+    public Viviendas getVivienda() { return vivienda; }
+    public void setVivienda(Viviendas vivienda) { this.vivienda = vivienda; }
 
     public String getFecha_registro() { return fecha_registro; }
     public void setFecha_registro(String fecha_registro) { this.fecha_registro = fecha_registro; }

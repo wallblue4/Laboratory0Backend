@@ -10,8 +10,7 @@ public class ViviendaDTO {
     private String direccion;
     private Integer capacidad;
     private Integer niveles;
-    private String municipioNombre;
-
+    private Long municipioNombre;
     private List<Personas> habitantes;
 
     // Constructor para simplificar el mapeo
@@ -20,8 +19,11 @@ public class ViviendaDTO {
         this.direccion = vivienda.getDireccion();
         this.capacidad = vivienda.getCapacidad();
         this.niveles = vivienda.getNiveles();
-        this.municipioNombre = vivienda.getMunicipio() != null ? vivienda.getMunicipio().getNombre() : null;
+        this.municipioNombre = vivienda.getMunicipio() != null ? vivienda.getMunicipio().getId() : null;
         this.habitantes = vivienda.getHabitantes();
+    }
+    public ViviendaDTO(){
+
     }
 
     // Getters y Setters
@@ -37,8 +39,8 @@ public class ViviendaDTO {
     public Integer getNiveles() { return niveles; }
     public void setNiveles(Integer niveles) { this.niveles = niveles; }
 
-    public String getMunicipioNombre() { return municipioNombre; }
-    public void setMunicipioNombre(String municipioNombre) { this.municipioNombre = municipioNombre; }
+    public Long getMunicipioNombre() { return municipioNombre; }
+    public void setMunicipioNombre(Long municipioNombre) { this.municipioNombre = municipioNombre; }
 
     public List<Personas> getHabitantes() {
         return habitantes;
